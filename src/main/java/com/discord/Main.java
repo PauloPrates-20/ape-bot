@@ -21,11 +21,13 @@ import com.google.gson.JsonParser;
 public class Main {
     public static void main(String[] args) {        
         // Instatiates the bot and sets it's responses
-        Dotenv dotenv = Dotenv.load();
-        String token = dotenv.get("DISCORD_TOKEN");
-        String channelId = dotenv.get("DISCORD_CHANNELID");
+        Dotenv dotenv = Dotenv.configure()
+                .ignoreIfMissing()
+                .load();
+        String token = dotenv.get("DISCORD_TOKEN", System.getenv("DISCORD_TOKEN"));
+        String channelId = dotenv.get("DISCORD_CHANNELID", System.getenv("DISCORD_CHANNELID"));
         String sessionId = channelId;
-        String url = dotenv.get("FLOWISE_API_URL");
+        String url = dotenv.get("FLOWISE_API_URL", System.getenv("FLOWISE_API_URL"));
 
         DiscordClient client = DiscordClient.create(token);
 
